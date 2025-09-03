@@ -105,3 +105,15 @@ if __name__ == "__main__":
     service = MovieService(client)
     app = ConsoleUI(service)
     app.run()
+
+#########################################
+## Reflexion:
+#########################################
+# Primero que nada, me gustaria destacar que los diagramas de clases UML son muy utiles cuando
+# se trata de disenhar una clase, ya que te permite definir atributos y metodos que lo van a
+# consumir. Una vez que se tiene definido el diagrama de clases. Es sumamente facil desarrollar
+# las clases en codigo. Sobre el codigo, la separacion clara entre TMDBClient y MovieService
+# permite realizar pruebas mas seguras y facilita futuras modificaciones sin afectar el resto
+# del sistema. Mientras que contar con un modelo/clase Movie ayuda a reducir el acoplamiento
+# con el JSON externo. Ademas, el patron propuesto tiene una evolución natural y sencilla hacia
+# una API REST sin necesidad de reescribir el cliente.
