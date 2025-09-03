@@ -1,0 +1,39 @@
+@startuml
+
+class Movie {
+    - id: int
+    - title: str
+    - original_title: str
+    - release_date: str?
+    - overview: str
+    - popularity: float
+    - vote_average: float
+    - poster_path: str?
+    + short_str(): str
+}
+
+class TMDBClient {
+    - bearer_token: str
+    - lang: str
+    - _session: requests.Session
+    + TMDBClient(bearer_token: str?, lang: str="es-MX")
+    + search_movies(query: str, page: int = 1, include_adult: bool = False): dict
+}
+
+class MovieService {
+    - client: TMDBClient
+    + MovieService(client: TMDBClient)
+    + find_by_title(title: str, page: int = 1): List<Movie>
+}
+
+class ConsoleUI {
+    - service: MovieService
+    + ConsoleUI(service: MovieService)
+    + run(): void
+}
+
+ConsoleUI --> MovieService
+MovieService --> TMDBClient
+MovieService --> Movie
+
+@enduml

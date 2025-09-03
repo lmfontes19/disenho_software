@@ -1,0 +1,18 @@
+@startuml
+
+actor Usuario as U
+participant ConsoleUI as UI
+participant MovieService as SVC
+participant TMDBClient as API
+boundary "TMDB v3 /search/movie" as TMDB
+
+U -> UI: Ingresar título (p. ej., "terminator")
+UI -> SVC: find_by_title("terminator")
+SVC -> API: search_movies(query="terminator", page=1)
+API -> TMDB: GET /3/search/movie?... (Bearer)
+TMDB --> API: 200 OK (JSON results)
+API --> SVC: dict (results)
+SVC --> UI: List<Movie>
+UI --> U: Imprimir lista (título, año, rating, popularidad)
+
+@enduml
